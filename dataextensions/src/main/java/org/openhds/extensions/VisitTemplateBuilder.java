@@ -102,6 +102,9 @@ public class VisitTemplateBuilder implements ExtensionTemplate {
 		JBlock jmsLocationBlock = jmsLocation.body();
 		jmsLocationBlock.assign(jfLocation, jvarLocation);
 		
+		
+		
+		
 		// visitDate
 		JFieldVar jfVisitDate = jc.field(JMod.PRIVATE , java.util.Calendar.class, "visitDate");
 		JAnnotationUse jaVisitDate = jfVisitDate.annotate(javax.validation.constraints.NotNull.class);
@@ -144,6 +147,22 @@ public class VisitTemplateBuilder implements ExtensionTemplate {
 		JBlock jmsRoundNumberBlock = jmsRoundNumber.body();
 		jmsRoundNumberBlock.assign(jfRoundNumber, jvarRoundNumber);
 		
+		// realVisit
+		JFieldVar jfRealVisit = jc.field(JMod.PRIVATE , java.lang.String.class, "realVisit");
+		JAnnotationUse jaRealVisitDesc = jfRealVisit.annotate(org.openhds.domain.annotations.Description.class);
+		jaRealVisitDesc.param("description", "Identifer for determining if the visit is Real with individuals or none in the house.");
+		
+		// getter
+		JMethod jmgRealVisit = jc.method(JMod.PUBLIC, java.lang.String.class, "getRealVisit");
+		JBlock jmgRealVisitBlock = jmgRealVisit.body();
+		jmgRealVisitBlock._return(jfRealVisit);
+		
+		// setter
+		JMethod jmsRealVisit = jc.method(JMod.PUBLIC, void.class, "setRealVisit");
+		JVar jvarRealVisit = jmsRealVisit.param(java.lang.String.class, "setRealVisit");
+		JBlock jmsRealVisitBlock = jmsRealVisit.body();
+		jmsRealVisitBlock.assign(jfRealVisit, jvarRealVisit);
+
 		// extensions
 		JClass basicListExtensions = jCodeModel.ref(java.util.List.class);
 		basicListExtensions = basicListExtensions.narrow(org.openhds.domain.model.Extension.class);
